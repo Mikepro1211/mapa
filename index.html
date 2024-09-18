@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba Video </title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+     <link rel="stylesheet" href="style.css">
+   
+   
+    
+</head>
+<body>
+    <div id="map">
+
+    </div>
+    <button>Click me</button>
+    
+</body>
+<script>
+    function getLocation(){
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(showPosition)
+        }else {
+            alert("Error")
+        }
+    }
+
+
+    function showPosition(position){
+     
+        var latitud = position.coords.latitude
+        var longitud = position.coords.longitude
+
+        var map = L.map('map').setView([latitud,longitud],13)
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
+            maxZoom: 19,
+            ttribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map)
+        L.marker([latitud, longitud]).addTo(map)
+        .bindPopup("Estoy aqui")
+        .openPopup()
+
+        
+    }
+    document.addEventListener("DOMContentLoaded",function(){
+            getLocation()
+        })
+
+    
+
+   
+
+    
+</script>
+</html>
